@@ -11,8 +11,9 @@ let element =".a-price-whole"
 const args=process.argv.slice(2)
 const url=args[0]
 const myPrice=args[1]
+const userEmail=args[2]
 // "https://www.amazon.in/realme-Wireless-Earbuds-Spatial-Charging/dp/B0DBGNY4XP"
-
+const productName= url.split("/")[3].replaceAll("-"," ")
 async function priceCheck() {
     try{
         const priceString= await nightmare
@@ -30,7 +31,7 @@ async function priceCheck() {
             console.log("buy it!")
             await sendEmail(
                 "The price has dropped!",
-                `the price is ${price}, do you want to buy it now ? Click here ${url}`
+                `the price of the product ${productName} is Rs.${price} now, do you want to buy it now ? Click here ${url}`
             )
         }
         else console.log(`the price is ${price}, do you want to buy it now?`)
@@ -43,7 +44,7 @@ async function priceCheck() {
 
 function sendEmail(subject,body){
     const email={
-        to: 'random@gmail.com',
+        to: userEmail,
         from: 'pricechecker@gmail.com',
         subject: subject,
         text: body,
