@@ -4,7 +4,6 @@ require('dotenv').config()
 const mailer=require('@sendgrid/mail')
 const cron=require('node-cron')
 
-
 mailer.setApiKey(process.env.SENDGRID_API_KEY)
 let element =".a-price-whole"
 
@@ -14,6 +13,7 @@ const myPrice=args[1]
 const userEmail=args[2]
 // "https://www.amazon.in/realme-Wireless-Earbuds-Spatial-Charging/dp/B0DBGNY4XP"
 const productName= url.split("/")[3].replaceAll("-"," ")
+
 async function priceCheck() {
     try{
         const priceString= await nightmare
